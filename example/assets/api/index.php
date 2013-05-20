@@ -14,7 +14,7 @@ $app->delete('/teams/:id',	'deleteTeam');
 $app->run();
 
 function getTeams() {
-	$sql = "select * FROM team ORDER BY name";
+	$sql = "select * FROM team ORDER BY rank";
 	try {
 		$db = getConnection();
 		$stmt = $db->query($sql);  

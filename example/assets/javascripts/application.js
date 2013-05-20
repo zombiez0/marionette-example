@@ -1,7 +1,24 @@
+var App = {};
+
+App = {
+    Layout : {}
+
+}
+
 MyApp = new Backbone.Marionette.Application();
 
+TeamModel = Backbone.Model.extend({
+
+  initialize : function() {
+    console.log("model init");
+  }
+
+});
+
 MyCollection = Backbone.Collection.extend({
-    url : './assets/json/sample.json'
+
+    model : TeamModel,
+    url : './assets/api/index.php/teams'
 })
 
 var rm = new Marionette.RegionManager();
@@ -42,7 +59,7 @@ AngryCatView = Backbone.Marionette.ItemView.extend({
   },
 
   removeElement : function() {
-    
+    console.log(this.model);
     window.router.navigate("about" , {trigger: true});
     return false;
   }
@@ -67,7 +84,7 @@ AngryCatsView = Backbone.Marionette.CompositeView.extend({
     },
 
     onRender : function() {
-        console.log("on render");
+        console.log(this.$el);
     },
 
     appendHtml: function(collectionView, itemView, index){
@@ -81,8 +98,30 @@ ModalView = Backbone.Marionette.CompositeView.extend({
 
     tagName : 'div',
     className : 'modal hide fade',
-    template : '#modal-tmpl'
+    template : '#modal-tmpl',
+
+    onShow : function() {
+      this.$el.modal('show');
+      this.$el.parent().show();
+    }
     
+});
+
+
+AddTeamView = Backbone.Marionette.CompositeView.extend({
+
+    template : '#add-team-tmpl',
+    tagName : 'div',
+    className : 'add-team',
+
+    events : {
+        'click #add-team-btn' : 'showAddTeamModal'
+    },
+
+    showAddTeamModal : function() {
+        window.router.navigate("addTeam" , {trigger: true});
+    }
+
 });
 
 
@@ -92,8 +131,9 @@ WrapperLayout = Backbone.Marionette.Layout.extend({
     template: "#wrapper-region-tmpl",
  
     regions: {
-      content: ".wrapper-content",
-      anotherRegion: ".wrapper-content-add"
+      contentRegion: ".wrapper-content",
+      modalRegion : ".wrapper-modal",
+      addTeamRegion: ".wrapper-content-add",
     }
 
 });
@@ -127,6 +167,7 @@ var MyAppRouter = Backbone.Router.extend({
 
   routes: {
     "" : "renderApp",
+    "addTeam" : "renderAddTeamModal",
     "about": "aboutApp"
   },
 
@@ -136,21 +177,31 @@ var MyAppRouter = Backbone.Router.extend({
     regions.headerRegion.show(new HeaderView());
 
     //Show the content Layout
-    var contentLyt = new WrapperLayout();
-    regions.wrapperRegion.show(contentLyt);
+    App.Layout.ContentLyt = new WrapperLayout();
+    regions.wrapperRegion.show(App.Layout.ContentLyt); 
     
 
     var catCollection = new MyCollection();
-    contentLyt.content.show(new AngryCatsView({collection : catCollection}));
+    App.Layout.ContentLyt.contentRegion.show(new AngryCatsView({collection : catCollection}));
+    App.Layout.ContentLyt.addTeamRegion.show(new AddTeamView());
     catCollection.fetch();
 
     regions.footerRegion.show(new FooterView());
   },
+
+  renderAddTeamModal : function() {
+    console.log(Backbone.history);
+    App.Layout.ContentLyt.modalRegion.show(new ModalView());
+    
+  },
  
   aboutApp: function(){
     alert("By Chetan");
-    
-  }
+  },
+
+  
+  
+
 });
 
 MyApp.start();
