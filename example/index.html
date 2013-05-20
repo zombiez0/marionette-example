@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>BACKBONE Marionette Tutorial: Collections</title>
+
+    <script src="./assets/javascripts/vendor/jquery.js"></script>
+    <script src="./assets/javascripts/vendor/underscore.js"></script>
+    <script src="./assets/javascripts/vendor/backbone.js"></script>
+    <script src="./assets/javascripts/vendor/backbone.marionette.min.js"></script>
+
+    <link href="./assets/css/bootstrap.css" rel="stylesheet">
+    <link href="./assets/css/custom.css" rel="stylesheet">
+
+    
+  </head>
+  <body>
+    <div id="content">
+        <header id="header"></header>
+        <div id="wrapper"></div>
+        <footer id="footer"></footer>
+    </div>
+
+    <script type="text/template" id="application-lyt">
+        <header id="header"></header>
+        <div id="wrapper"></div>
+        <footer id="footer"></footer>
+    </script>
+
+    <script type="text/template" id="header-tmpl">
+            <div>This is the header</div>
+    </script>
+
+    <script type="text/template" id="footer-tmpl">
+            <div>This is the Footer</div>
+    </script>
+
+    <script type="text/template" id="angry_cats-template">
+      <thead>
+        <tr class='header'>
+          <th>Rank</th>
+          <th>Votes</th>
+          <th>Name</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </script>
+
+    <script type="text/template" id="cat-tmpl">
+      <td><%= rank %></td>
+      <td><%= votes %></td>
+      <td><%= name %></td>
+      <td>
+          <button class="btn btn-inverse btn-small" type="button">Edit</button>
+          <button class="btn btn-danger btn-small" type="button">Remove</button>
+          
+      </td>
+      
+    </script>
+
+    <script type="text/template" id="modal-tmpl">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Modal header</h3>
+          </div>
+          <div class="modal-body">
+            <p>One fine body…</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn">Close</a>
+            <a href="#" class="btn btn-primary">Save changes</a>
+          </div>
+    </script>
+
+     <script type="text/template" id="wrapper-region-tmpl">
+          <div class="wrapper-content"></div>
+          <div class="wrapper-content-add"></div>
+     </script>>
+
+    
+  </body>
+  <script src="./assets/javascripts/application.js"></script>
+</html>

@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "rank": 1,
+        "votes": 10,
+        "name": "Coolkat"
+    },
+    {
+        "id": 2,
+        "rank": 1,
+        "votes": 10,
+        "name": "Topcat"
+    },
+    {
+        "id": 3,
+        "rank": 1,
+        "votes": 10,
+        "name": "Felix the kat"
+    },
+    {
+        "id": 4,
+        "rank": 1,
+        "votes": 10,
+        "name": "Rowdy Cat"
+    }
+]
