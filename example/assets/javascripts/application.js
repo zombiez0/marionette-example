@@ -94,15 +94,52 @@ AngryCatsView = Backbone.Marionette.CompositeView.extend({
 
 }); 
 
+
 ModalView = Backbone.Marionette.CompositeView.extend({
 
     tagName : 'div',
     className : 'modal hide fade',
     template : '#modal-tmpl',
 
+    onRender : function() {
+        this.$el.find('.modal-body').html(this.ModalBodytemplate);
+    },
+
     onShow : function() {
-      this.$el.modal('show');
-      this.$el.parent().show();
+        this.$el.modal('show');
+        this.$el.parent().show();
+    }
+
+});
+
+AddTeamModalView = ModalView.extend({
+
+    ModalBodytemplate: _.template($('#new-team-inp-tmpl').html()),
+
+    events : {
+        'click .x' : 'hello',
+        'click a' : 'handleAnchor'
+    },
+
+    handleAnchor : function(e) {
+        e.preventDefault();
+    },
+
+    hello : function() {
+        alert("sdgd");
+        console.log(this.model);
+    },
+
+
+
+    serializeData : function() {
+      return {
+          "headerTxt" : 'Add a new Team!',
+          "buttons" : {
+              'closeBtn' : true,
+              'saveBtn' : true
+          }
+      }
     }
     
 });
@@ -190,8 +227,8 @@ var MyAppRouter = Backbone.Router.extend({
   },
 
   renderAddTeamModal : function() {
-    console.log(Backbone.history);
-    App.Layout.ContentLyt.modalRegion.show(new ModalView());
+
+    App.Layout.ContentLyt.modalRegion.show(new AddTeamModalView());
     
   },
  

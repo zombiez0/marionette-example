@@ -6,6 +6,27 @@
     display: none;
 }
 
+.modal-body label{
+    display: inline-block !important;
+     
+}
+
+.modal-body input[type='text']{
+    margin: 0;
+}
+
+div.new-team-name-wrp{
+    margin: 0 0 15px 0;
+}
+
+div.new-team-vote-wrp input[type='number']{
+    width: 70px;
+}
+
+div.new-team-vote-wrp label{
+    margin-right: 20px;
+}
+
 
 img.angry_cat_pic {
     height: 100px;
