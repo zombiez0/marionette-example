@@ -45,6 +45,9 @@ function addTeam() {
 	error_log('addWine\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
 	$team = json_decode($request->getBody());
+
+	
+	
 	$sql = "INSERT INTO team (rank, votes, name) VALUES (:rank, :votes, :name)";
 	try {
 		$db = getConnection();
@@ -66,6 +69,7 @@ function updateTeam($id) {
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
 	$team = json_decode($body);
+
 	$sql = "UPDATE team SET rank=:rank, votes=:votes, name=:name WHERE id=:id";
 	try {
 		$db = getConnection();

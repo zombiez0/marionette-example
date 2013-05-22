@@ -101,6 +101,18 @@ ModalView = Backbone.Marionette.CompositeView.extend({
     className : 'modal hide fade',
     template : '#modal-tmpl',
 
+    events : {
+        'click a' : 'handleAnchor',
+        
+    },
+
+
+
+    handleAnchor : function(e) {
+        e.preventDefault();
+        console.log('prevent default');
+    },
+
     onRender : function() {
         this.$el.find('.modal-body').html(this.ModalBodytemplate);
     },
@@ -116,21 +128,20 @@ AddTeamModalView = ModalView.extend({
 
     ModalBodytemplate: _.template($('#new-team-inp-tmpl').html()),
 
-    events : {
-        'click .x' : 'hello',
-        'click a' : 'handleAnchor'
+    events : function() {
+        return _.extend({}, ModalView.prototype.events , {
+            'click .save-btn' : 'addNewTeam'
+        });
     },
 
-    handleAnchor : function(e) {
-        e.preventDefault();
-    },
+    addNewTeam : function() {
+        this.model = new TeamModel({
 
-    hello : function() {
-        alert("sdgd");
+            'name' : 'sgdsg'
+
+        });
         console.log(this.model);
     },
-
-
 
     serializeData : function() {
       return {
@@ -191,7 +202,7 @@ MyApp.on("initialize:before", function(options){    //fired just before the init
 });
 
 MyApp.on("initialize:after", function(){    //fires just after the initializers have finished
-    if (Backbone.history){
+    if (Backbone.history) {
         Backbone.history.start();
     }
 });
